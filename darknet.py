@@ -1,4 +1,4 @@
-#!python3
+#!python3 #確認変更
 """
 Python 3 wrapper for identifying objects in images
 
