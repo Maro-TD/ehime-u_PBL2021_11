@@ -2,30 +2,36 @@ import RPi.GPIO as GPIO
 import time
 
 red=40
-W=int(input("0<=W__")) #A=wide
+W=int(input("0<=W__")) #W=wide
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(red,GPIO.OUT)
 
-while 1000<=W:
-    GPIO.output(red,True)
-    W=W #wide dainyuu
+while W==W:
+    while 1000<=W:
+        GPIO.output(red,True)
+        time.sleep(5)
+        W=501 #ex)wide dainyuu
     
     
-while 500<=W and W<=1000:
-    GPIO.output(red,True)
-    time.sleep(0.5)
-    GPIO.output(red,False)
-    time.sleep(0.5)
-    W=W #wide dainyuu
+    if 500<=W and W<=1000:
+        for i in range(10):
+            GPIO.output(red,True)
+            time.sleep(0.5)
+            GPIO.output(red,False)
+            time.sleep(0.5)
+    W=5 #ex)wide dainyuu
+    
 
-while 0<=W and W<=500:
-    GPIO.output(red,True)
-    time.sleep(0.07)
-    GPIO.output(red,False)
-    time.sleep(0.07)
-    W=W #wide dainyuu
+    if 0<=W and W<=500:
+        for i in range(30):
+            GPIO.output(red,True)
+            time.sleep(0.07)
+            GPIO.output(red,False)
+            time.sleep(0.07)
+    W=5555 #ex)wide dainyuu
+    
 
 GPIO.cleanup()
 
