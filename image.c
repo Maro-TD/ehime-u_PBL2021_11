@@ -401,9 +401,10 @@ void draw_detections_v3(image im, detection *dets, int num, float thresh, char *
             if (right > im.w - 1) right = im.w - 1;
             if (top < 0) top = 0;
             if (bot > im.h - 1) bot = im.h - 1;
-
-            printf("%d,%d,%d,%d\n", left, top, right, bot);
-
+            if (j == person){
+                printf("%d,%d,%d,%d\n", left, top, right, bot);
+            }
+        
             //int b_x_center = (left + right) / 2;
             //int b_y_center = (top + bot) / 2;
             //int b_width = right - left;
