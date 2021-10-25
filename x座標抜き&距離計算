@@ -1,0 +1,5 @@
+xywh_number="43,39,203,318\n34,287,247,359\n178,174,234,252"
+A=xywh_number.replace("\n",",")
+x1,y1,w1,h1,x2,Q=A.split(",",5)
+W=abs(int(x2)-int(x1))
+print(W)
