@@ -1,0 +1,56 @@
+import RPi.GPIO as GPIO
+import time
+
+red=40
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(red,GPIO.OUT)
+
+xywh_date=open("camlog2.txt", "r") #read file
+xywh_number=xywh_date.read()
+A=xywh_number.replace("\n",",")
+x1,y1,w1,h1,x2,y2,w2,Q=A.split(",",7)
+W=int(x2)-int(w1)-int(x1)
+print(W)
+
+while True:
+    if 500<=W:#remote
+        GPIO.output(red,True)
+        time.sleep(1)
+        
+        xywh_date=open("camlog2.txt", "r")
+        xywh_number=xywh_date.read()
+        A=xywh_number.replace("\n",",")
+        x1,y1,w1,h1,x2,Q=A.split(",",5)
+        W=int(x2)-int(w1)-int(x1)
+        print(W)
+    
+    
+    if 200<W and W<500:#ordinary
+        GPIO.output(red,True)
+        time.sleep(0.5)
+        GPIO.output(red,False)
+        time.sleep(0.5)
+            
+        xywh_date=open("camlog2.txt", "r")
+        xywh_number=xywh_date.read()
+        A=xywh_number.replace("\n",",")
+        x1,y1,w1,h1,x2,Q=A.split(",",5)
+        W=int(x2)-int(w1)-int(x1)
+        print(W)
+    
+    if W<200:#near
+        GPIO.output(red,True)
+        time.sleep(0.07)
+        GPIO.output(red,False)
+        time.sleep(0.07)
+            
+        xywh_date=open("camlog2.txt", "r")
+        xywh_number=xywh_date.read()
+        A=xywh_number.replace("\n",",")
+        x1,y1,w1,h1,x2,Q=A.split(",",5)
+        W=int(x2)-int(w1)-int(x1)
+        print(W)
+
+GPIO.cleanup()
