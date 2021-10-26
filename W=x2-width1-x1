@@ -7,24 +7,36 @@ GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(red,GPIO.OUT)
 
-xywh_date=open("camlog2.txt", "r") #read file
-xywh_number=xywh_date.read()
-A=xywh_number.replace("\n",",")
+while True:
+    xywh_date=open("camlog2.txt", "r") #read file
+    xywh_number=xywh_date.read()
+    A=xywh_number.replace("\n",",")
+##    print (sum([1 for _ in open("camlog2.txt")]))
+##    if sum([1 for _ in open("camlog2.txt")]) < 2:
+##        print("I am operating")
+##        time.sleep(0.5)
+    
+    while xywh_number.count(',') <= 3:
+        xywh_date=open("camlog2.txt", "r") #read file
+        xywh_number=xywh_date.read()
+        print("I am operating")
+        time.sleep(0.5)
+        
 x1,y1,w1,h1,x2,y2,w2,Q=A.split(",",7)
 W=int(x2)-int(w1)-int(x1)
 print(W)
-
+  
 while True:
-    if 500<=W:#remote
-        GPIO.output(red,True)
-        time.sleep(1)
+     if 500<=W:#remote
+         GPIO.output(red,True)
+         time.sleep(1)
         
-        xywh_date=open("camlog2.txt", "r")
-        xywh_number=xywh_date.read()
-        A=xywh_number.replace("\n",",")
-        x1,y1,w1,h1,x2,Q=A.split(",",5)
-        W=int(x2)-int(w1)-int(x1)
-        print(W)
+         xywh_date=open("camlog2.txt", "r")
+         xywh_number=xywh_date.read()
+         A=xywh_number.replace("\n",",")
+         x1,y1,w1,h1,x2,Q=A.split(",",5)
+         W=int(x2)-int(w1)-int(x1)
+         print(W)
     
     
     if 200<W and W<500:#ordinary
