@@ -2,36 +2,56 @@ import RPi.GPIO as GPIO
 import time
 
 red=40
-W=int(input("0<=W__")) #W=wide
 
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(red,GPIO.OUT)
 
-while W==W:
-    while 1000<=W:
-        GPIO.output(red,True)
-        time.sleep(5)
-        W=501 #ex)wide dainyuu
-    
-    
-    if 500<=W and W<=1000:
-        for i in range(10):
-            GPIO.output(red,True)
-            time.sleep(0.5)
-            GPIO.output(red,False)
-            time.sleep(0.5)
-    W=5 #ex)wide dainyuu
-    
+xywh_date=open("camlog2.txt", "r") #read file
+xywh_number=xywh_date.read()
+A=xywh_number.replace("\n",",")
+x1,y1,w1,h1,x2,Q=A.split(",",5)
+W=abs(int(x2)-int(x1))
+print(W)
 
-    if 0<=W and W<=500:
-        for i in range(30):
-            GPIO.output(red,True)
-            time.sleep(0.07)
-            GPIO.output(red,False)
-            time.sleep(0.07)
-    W=5555 #ex)wide dainyuu
+while True:
+    if 1000<=W:#remote
+        GPIO.output(red,True)
+        time.sleep(1)
+        
+        xywh_date=open("camlog2.txt", "r")
+        xywh_number=xywh_date.read()
+        A=xywh_number.replace("\n",",")
+        x1,y1,w1,h1,x2,Q=A.split(",",5)
+        W=abs(int(x2)-int(x1))
+        print(W)
     
+    
+    if 500<W and W<1000:#ordinary
+        GPIO.output(red,True)
+        time.sleep(0.5)
+        GPIO.output(red,False)
+        time.sleep(0.5)
+            
+        xywh_date=open("camlog2.txt", "r")
+        xywh_number=xywh_date.read()
+        A=xywh_number.replace("\n",",")
+        x1,y1,w1,h1,x2,Q=A.split(",",5)
+        W=abs(int(x2)-int(x1))
+        print(W)
+    
+    if 0<=W and W<500:#near
+        GPIO.output(red,True)
+        time.sleep(0.07)
+        GPIO.output(red,False)
+        time.sleep(0.07)
+            
+        xywh_date=open("camlog2.txt", "r")
+        xywh_number=xywh_date.read()
+        A=xywh_number.replace("\n",",")
+        x1,y1,w1,h1,x2,Q=A.split(",",5)
+        W=abs(int(x2)-int(x1))
+        print(W)
 
 GPIO.cleanup()
 
